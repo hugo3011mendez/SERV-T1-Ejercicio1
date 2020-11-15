@@ -12,51 +12,61 @@ namespace Ejercicio1
 
         static void MenuGenerator(String[] nombreOpciones, MyDelegate[] opciones)
         {
-            bool repetir = true;
-            int opcion;
 
-            while (repetir)
+            if (nombreOpciones.Length != opciones.Length)
             {
-                // Muestro las opciones que haya en el array de sus nombres
-                for (int i = 0; i < nombreOpciones.Length; i++)
-                {
-                    Console.WriteLine(i + 1 + " : " + nombreOpciones[i]);
-                }
-
-                Console.WriteLine((nombreOpciones.Length + 1) + " : Salir");
+                Console.WriteLine("No se ha podido lanzar el menú, la cantidad de opciones no es la misma que la cantidad de casos");
                 Console.WriteLine();
+            }
+            else
+            {
+                bool repetir = true;
+                int opcion;
 
-                try
+                while (repetir)
                 {
-                    // Le pido al usuario que escoja una opción
-                    Console.WriteLine("Qué opción escoges?");
-                    opcion = Convert.ToInt32(Console.ReadLine());
+                    // Muestro las opciones que haya en el array de sus nombres
+                    for (int i = 0; i < nombreOpciones.Length; i++)
+                    {
+                        Console.WriteLine(i + 1 + " : " + nombreOpciones[i]);
+                    }
+
+                    Console.WriteLine((nombreOpciones.Length + 1) + " : Salir");
                     Console.WriteLine();
 
-                    if (opcion > 0 && opcion <= nombreOpciones.Length + 1)
+                    try
                     {
-                        if (opcion == nombreOpciones.Length + 1)
+                        // Le pido al usuario que escoja una opción
+                        Console.WriteLine("Qué opción escoges?");
+                        opcion = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine();
+
+                        if (opcion > 0 && opcion <= nombreOpciones.Length + 1)
                         {
-                            repetir = false;
-                            Console.WriteLine("Pulsa Enter para salir");
+                            if (opcion == nombreOpciones.Length + 1)
+                            {
+                                repetir = false;
+                                Console.WriteLine("Pulsa Enter para salir");
+                            }
+                            else
+                            {
+                                MyDelegate caso = new MyDelegate(opciones[opcion-1]);
+                                caso();
+                            }
                         }
                         else
                         {
-                            MyDelegate caso = new MyDelegate(opciones[opcion-1]);
-                            caso();
+                            Console.WriteLine("No existe esa opción!");
                         }
                     }
-                    else
+                    catch (FormatException)
                     {
-                        Console.WriteLine("No existe esa opción!");
+                        Console.WriteLine("La opción debe ser un número!");
+                        Console.WriteLine();
                     }
                 }
-                catch (FormatException)
-                {
-                    Console.WriteLine("La opción debe ser un número!");
-                    Console.WriteLine();
-                }
             }
+
         }
 
 
