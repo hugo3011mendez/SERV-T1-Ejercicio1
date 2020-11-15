@@ -26,27 +26,35 @@ namespace Ejercicio1
                 Console.WriteLine((nombreOpciones.Length + 1) + " : Salir");
                 Console.WriteLine();
 
-                // Le pido al usuario que escoja una opción
-                Console.WriteLine("Qué opción escoges?");
-                opcion = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
-
-                if (opcion > 0 && opcion <= nombreOpciones.Length + 1)
+                try
                 {
-                    if (opcion == nombreOpciones.Length + 1)
+                    // Le pido al usuario que escoja una opción
+                    Console.WriteLine("Qué opción escoges?");
+                    opcion = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+
+                    if (opcion > 0 && opcion <= nombreOpciones.Length + 1)
                     {
-                        repetir = false;
-                        Console.WriteLine("Pulsa Enter para salir");
+                        if (opcion == nombreOpciones.Length + 1)
+                        {
+                            repetir = false;
+                            Console.WriteLine("Pulsa Enter para salir");
+                        }
+                        else
+                        {
+                            MyDelegate caso = new MyDelegate(opciones[opcion-1]);
+                            caso();
+                        }
                     }
                     else
                     {
-                        MyDelegate caso = new MyDelegate(opciones[opcion-1]);
-                        caso();
+                        Console.WriteLine("No existe esa opción!");
                     }
                 }
-                else
+                catch (FormatException)
                 {
-                    Console.WriteLine("No existe esa opción!");
+                    Console.WriteLine("La opción debe ser un número!");
+                    Console.WriteLine();
                 }
             }
         }
