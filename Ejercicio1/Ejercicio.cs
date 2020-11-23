@@ -50,7 +50,7 @@ namespace Ejercicio1
                             }
                             else
                             {
-                                MyDelegate caso = new MyDelegate(opciones[opcion-1]);
+                                MyDelegate caso = opciones[opcion-1];
                                 caso();
                             }
                         }
